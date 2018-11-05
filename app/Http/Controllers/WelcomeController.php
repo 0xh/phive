@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 class WelcomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show the welcome page
      *
      * @return \Illuminate\Http\Response
      */
