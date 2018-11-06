@@ -2,7 +2,7 @@
 
 @section ('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-4">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ $project->title }}</div>
@@ -10,13 +10,7 @@
                         <blockquote class="blockquote-footer mb-0">{{ $project->description }}</blockquote>
                     </div>
                     @if ($project->tasks->count())
-                        <ul class="list-group list-group-flush">
-                            @foreach ($project->tasks as $task)
-                                <li class="list-group-item">
-                                    {{ $task->description }}
-                                </li>
-                            @endforeach
-                        </ul>
+                        @include ('projects._taskList')
                     @endif
                     <div class="card-footer d-flex justify-content-center">
                         <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary">{{ __('Edit') }}</a>
@@ -25,5 +19,6 @@
                 </div>
             </div>
         </div>
+        @include ('projects._addTask')
     </div>
 @endsection
