@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Task[] $tasks
  */
 class Project extends Model
 {
@@ -29,4 +30,12 @@ class Project extends Model
     protected $fillable = [
         'title', 'description',
     ];
+
+    /**
+     * Get the tasks for the given project.
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
