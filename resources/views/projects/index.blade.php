@@ -2,17 +2,21 @@
 
 @section ('content')
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 class="mb-3">Projects</h1>
-                <ul class="list-group mb-2">
-                    @foreach ($projects as $project)
-                        <li class="list-group-item">
-                            <a href="#">{{ $project->title }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-                {{ $projects->links() }}
+                <div class="card">
+                    <div class="card-header">Projects</div>
+                    <ul class="list-group list-group-flush">
+                        @foreach ($projects as $project)
+                            <li class="list-group-item">
+                                <a href="#">{{ $project->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="card-footer pb-0">
+                        {{ $projects->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
