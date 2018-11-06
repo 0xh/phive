@@ -26,7 +26,7 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        return view('projects.create', ['project' => new Project]);
     }
 
     /**
@@ -47,10 +47,10 @@ class ProjectsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param Project $project
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
         //
     }
@@ -58,24 +58,28 @@ class ProjectsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param Project $project
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('projects.edit', ['project' => $project]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param Project $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Project $project)
     {
-        //
+        $project->update([
+            'title' => request('title'),
+            'description' => request('description')
+        ]);
+
+        return redirect()->route('projects.index');
     }
 
     /**
