@@ -30,7 +30,7 @@
             id="description"
             cols="30"
             rows="5"
-            class="form-control"
+            class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
             placeholder="Project Description">{{ old('description') ?? $project->description }}</textarea>
 
         @if ($errors->has('description'))
