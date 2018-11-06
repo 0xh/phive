@@ -18,7 +18,7 @@
                                 name="description"
                                 placeholder="Task Description"
                                 value="{{ old('description') }}"
-                                {{--required--}}
+                                required
                                 autofocus>
 
                             @if ($errors->has('description'))
