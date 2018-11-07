@@ -20,3 +20,5 @@ Route::resource('projects', 'ProjectsController');
 Route::post('projects/{project}/tasks', 'ProjectTasksController@store')->name('projects.tasks.store');
 Route::post('completed-tasks/{task}', 'CompletedTasksController@store')->name('completed-tasks.store');
 Route::delete('completed-tasks/{task}', 'CompletedTasksController@destroy')->name('completed-tasks.destroy');
+
+Route::resource('songs', 'SongsController');

@@ -13,6 +13,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('projects.index') }}">{{ __('Projects') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('songs.index') }}">{{ __('Songs') }}</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
