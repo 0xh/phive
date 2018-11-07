@@ -12,6 +12,9 @@
                             @include('songs._form')
                         </form>
                     </div>
+                    <div class="card-footer text-right">
+                        <a href="{{ $indexUrl }}" class="btn btn-primary">Back</a>
+                    </div>
                 </div>
             </div>
         </div>

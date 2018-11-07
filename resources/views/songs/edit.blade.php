@@ -13,6 +13,9 @@
                             @include('songs._form', ['submitButtonText' => 'Update Song'])
                         </form>
                     </div>
+                    <div class="card-footer text-right">
+                        <a href="{{ $indexUrl }}" class="btn btn-primary">Back</a>
+                    </div>
                 </div>
             </div>
         </div>

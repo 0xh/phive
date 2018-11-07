@@ -26,7 +26,7 @@
                         ></iframe>
                     </div>
                     <div class="card-footer text-right">
-                        <em>Published @ {{ $song->published_at->diffForHumans() }}</em>
+                        <em>Published @ {{ $humanDate($song->published_at) }}</em>
                     </div>
                 </div>
             </div>

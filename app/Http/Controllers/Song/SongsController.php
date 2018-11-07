@@ -6,6 +6,7 @@ use App\Filters\SongFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Song;
 use App\Models\User;
+use App\ViewModels\SongsViewModel;
 
 class SongsController extends Controller
 {
@@ -33,7 +34,7 @@ class SongsController extends Controller
      */
     public function create()
     {
-        return view('songs.create', ['song' => new Song]);
+        return view('songs.create', new SongsViewModel(\Auth::user()));
     }
 
     /**
@@ -61,7 +62,7 @@ class SongsController extends Controller
      */
     public function show(Song $song)
     {
-        return view('songs.show', ['song' => $song]);
+        return view('songs.show', new SongsViewModel(null, $song));
     }
 
     /**
@@ -72,7 +73,7 @@ class SongsController extends Controller
      */
     public function edit(Song $song)
     {
-        return view('songs.edit', ['song' => $song]);
+        return view('songs.edit', new SongsViewModel(\Auth::user(), $song));
     }
 
     /**
