@@ -14,8 +14,8 @@ class ProjectTasksController extends Controller
      */
     public function store(Project $project)
     {
-        $project->addTask(request()->validate(['description' => ['required', 'max:255']]));
+        $project->addTask(\Request::validate(['description' => ['required', 'max:255']]));
 
-        return back();
+        return redirect()->action([ProjectsController::class, 'show'], $project);
     }
 }

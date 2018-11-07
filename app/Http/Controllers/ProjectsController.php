@@ -48,7 +48,7 @@ class ProjectsController extends Controller
             'description' => ['required', 'min:3'],
         ]));
 
-        return redirect()->route('projects.index');
+        return redirect()->action([ProjectsController::class, 'index']);
     }
 
     /**
@@ -92,7 +92,7 @@ class ProjectsController extends Controller
 
         $project->update(\Request::validate(['title' => 'required', 'description' => 'required']));
 
-        return redirect()->route('projects.index');
+        return redirect()->action([ProjectsController::class, 'index']);
     }
 
     /**
@@ -109,6 +109,6 @@ class ProjectsController extends Controller
 
         $project->delete();
 
-        return redirect()->route('projects.index');
+        return redirect()->action([ProjectsController::class, 'index']);
     }
 }

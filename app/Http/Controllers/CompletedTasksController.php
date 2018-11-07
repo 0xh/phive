@@ -17,7 +17,7 @@ class CompletedTasksController extends Controller
     {
         $task->complete();
 
-        return back();
+        return redirect()->action([ProjectsController::class, 'show'], $task->project);
     }
 
     /**
@@ -30,6 +30,6 @@ class CompletedTasksController extends Controller
     {
         $task->incomplete();
 
-        return back();
+        return redirect()->action([ProjectsController::class, 'show'], $task->project);
     }
 }

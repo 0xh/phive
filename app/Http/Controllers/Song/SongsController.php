@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Song;
 use App\Filters\SongFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Song;
-use App\Models\User;
 use App\ViewModels\SongsViewModel;
 
 class SongsController extends Controller
@@ -51,7 +50,7 @@ class SongsController extends Controller
             'published_at' => ['required', 'date'],
         ]));
 
-        return redirect()->route('songs.index');
+        return redirect()->action([SongsController::class, 'index']);
     }
 
     /**
@@ -94,7 +93,7 @@ class SongsController extends Controller
             'published_at' => ['required', 'date'],
         ]));
 
-        return redirect()->route('songs.index');
+        return redirect()->action([SongsController::class, 'index']);
     }
 
     /**
@@ -110,6 +109,6 @@ class SongsController extends Controller
 
         $song->delete();
 
-        return redirect()->route('songs.index');
+        return redirect()->action([SongsController::class, 'index']);
     }
 }
