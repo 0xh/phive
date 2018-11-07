@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Project;
 
+use App\Http\Controllers\Controller;
 use App\Models\Task;
-use Illuminate\Http\Request;
 
 class CompletedTasksController extends Controller
 {

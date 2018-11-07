@@ -12,14 +12,16 @@
 */
 
 Route::get('/', 'WelcomeController@index')->name('welcome');
-
 Route::auth();
-
 Route::get('home', 'HomeController@index')->name('home');
-Route::resource('projects', 'ProjectsController');
-Route::post('projects/{project}/tasks', 'ProjectTasksController@store')->name('projects.tasks.store');
-Route::post('completed-tasks/{task}', 'CompletedTasksController@store')->name('completed-tasks.store');
-Route::delete('completed-tasks/{task}', 'CompletedTasksController@destroy')->name('completed-tasks.destroy');
+
+Route::resource('projects', 'Project\ProjectsController');
+Route::post('projects/{project}/tasks', 'Project\ProjectTasksController@store')
+    ->name('projects.tasks.store');
+Route::post('completed-tasks/{task}', 'Project\CompletedTasksController@store')
+    ->name('completed-tasks.store');
+Route::delete('completed-tasks/{task}', 'Project\CompletedTasksController@destroy')
+    ->name('completed-tasks.destroy');
 
 Route::get('songs/export', 'Song\ExportSongsController@index')->name('songs.export');
 Route::post('songs/import', 'Song\ImportSongsController@store')->name('songs.import');
