@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Song;
 
 use App\Http\Controllers\Controller;
 use App\Models\Song;
+use App\Models\User;
 
 class SongsController extends Controller
 {
@@ -23,6 +24,10 @@ class SongsController extends Controller
 
         if (request()->has('artist')) {
             $songs->where('artist', request('artist'));
+        }
+
+        if (request()->has('user')) {
+            $songs->where('user_id', User::where('email', request('user'))->first()->id);
         }
 
         return view('songs.index', ['songs' => $songs->paginate(10)]);
