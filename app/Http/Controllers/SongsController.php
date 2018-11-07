@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\{
+    SongsExport, SongsImport
+};
 use App\Models\Song;
 
 class SongsController extends Controller
@@ -13,9 +16,13 @@ class SongsController extends Controller
      */
     public function index()
     {
-        $songs = Song::latest('published_at')->paginate(10);
+        $songs = Song::latest('published_at');
 
-        return view('songs.index', ['songs' => $songs]);
+        if (request()->has('artist')) {
+            $songs->where('artist', request('artist'));
+        }
+
+        return view('songs.index', ['songs' => $songs->paginate(10)]);
     }
 
     /**
@@ -97,5 +104,26 @@ class SongsController extends Controller
         $song->delete();
 
         return redirect()->route('songs.index');
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function import()
+    {
+        $path = request()->file('file')->storeAs('uploads', 'songs.xlsx');
+        \Excel::import(new SongsImport, $path);
+
+        return redirect()->route('songs.index')->with('success', 'All good!');
+    }
+
+    /**
+     * @return \Maatwebsite\Excel\BinaryFileResponse
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    public function export()
+    {
+        return \Excel::download(new SongsExport, 'songs.xlsx');
     }
 }
