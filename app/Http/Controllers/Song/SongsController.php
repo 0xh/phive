@@ -50,7 +50,7 @@ class SongsController extends Controller
      */
     public function store()
     {
-        Song::create(request()->validate([
+        \Auth::user()->songs()->create(\Request::validate([
             'artist'       => ['required'],
             'title'        => ['required'],
             'url'          => ['required', 'max:255'],
@@ -93,7 +93,7 @@ class SongsController extends Controller
     {
         $this->authorize('update', $song);
 
-        $song->update(request()->validate([
+        $song->update(\Request::validate([
             'artist'       => ['required'],
             'title'        => ['required'],
             'url'          => ['required', 'max:255'],

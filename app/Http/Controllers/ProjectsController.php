@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,10 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::latest('id')->paginate(5);
+        $projects = \Auth::user()
+            ->projects()
+            ->latest('id')
+            ->paginate(5);
 
         return view('projects.index', ['projects' => $projects]);
     }
@@ -36,7 +43,7 @@ class ProjectsController extends Controller
      */
     public function store()
     {
-        auth()->user()->projects()->create(request()->validate([
+        \Auth::user()->projects()->create(request()->validate([
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3'],
         ]));
@@ -45,13 +52,14 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
      * @param Project $project
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Project $project)
     {
+        $this->authorize('update', $project);
+
         return view('projects.show', ['project' => $project]);
     }
 
@@ -59,22 +67,30 @@ class ProjectsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Project $project
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
+
         return view('projects.edit', ['project' => $project]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * * Update the specified resource in storage.
      *
      * @param Project $project
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Project $project)
     {
-        $project->update(request()->validate(['title' => 'required', 'description' => 'required']));
+        $this->authorize('update', $project);
+
+        $project->update(\Request::validate(['title' => 'required', 'description' => 'required']));
 
         return redirect()->route('projects.index');
     }
@@ -83,11 +99,14 @@ class ProjectsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Project $project
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Exception
      */
     public function destroy(Project $project)
     {
+        $this->authorize('update', $project);
+
         $project->delete();
 
         return redirect()->route('projects.index');
