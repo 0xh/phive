@@ -1,11 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Song;
 
+use App\Http\Controllers\Controller;
 use App\Models\Song;
 
 class SongsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('create');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -64,10 +70,13 @@ class SongsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Song $song
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Song $song)
     {
+        $this->authorize('update', $song);
+
         return view('songs.edit', ['song' => $song]);
     }
 
@@ -75,10 +84,13 @@ class SongsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Song $song
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Song $song)
     {
+        $this->authorize('update', $song);
+
         $song->update(request()->validate([
             'artist'       => ['required'],
             'title'        => ['required'],
@@ -98,6 +110,8 @@ class SongsController extends Controller
      */
     public function destroy(Song $song)
     {
+        $this->authorize('update', $song);
+
         $song->delete();
 
         return redirect()->route('songs.index');

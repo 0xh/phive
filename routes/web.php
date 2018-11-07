@@ -21,6 +21,6 @@ Route::post('projects/{project}/tasks', 'ProjectTasksController@store')->name('p
 Route::post('completed-tasks/{task}', 'CompletedTasksController@store')->name('completed-tasks.store');
 Route::delete('completed-tasks/{task}', 'CompletedTasksController@destroy')->name('completed-tasks.destroy');
 
-Route::get('songs/export', 'ExportSongsController@index')->name('songs.export');
-Route::post('songs/import', 'ImportSongsController@store')->name('songs.import');
-Route::resource('songs', 'SongsController');
+Route::get('songs/export', 'Song\ExportSongsController@index')->name('songs.export');
+Route::post('songs/import', 'Song\ImportSongsController@store')->name('songs.import');
+Route::resource('songs', 'Song\SongsController');

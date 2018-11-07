@@ -11,8 +11,10 @@
                             <em>by</em>
                             <strong>{{ $song->artist }}</strong>
                         </div>
-                        <a href="{{ route('songs.edit', $song) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                        @include ('songs._delete')
+                        @can ('update', $song)
+                            <a href="{{ route('songs.edit', $song) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                            @include ('songs._delete')
+                        @endcan
                     </div>
                     <div class="card-body text-center">
                         <iframe width="560"

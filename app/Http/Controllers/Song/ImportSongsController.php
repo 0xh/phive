@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Song;
 
+use App\Http\Controllers\Controller;
 use App\Imports\SongsImport;
 
 class ImportSongsController extends Controller

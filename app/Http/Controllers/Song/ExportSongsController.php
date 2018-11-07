@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Song;
 
+use App\Http\Controllers\Controller;
 use App\Exports\SongsExport;
 
 class ExportSongsController extends Controller
