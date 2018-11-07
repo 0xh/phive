@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Song;
 
 use App\Filters\SongFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SongRequest;
 use App\Models\Song;
 use App\ViewModels\SongsViewModel;
 
@@ -39,16 +40,12 @@ class SongsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param SongRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(SongRequest $request)
     {
-        \Auth::user()->songs()->create(\Request::validate([
-            'artist'       => ['required'],
-            'title'        => ['required'],
-            'url'          => ['required', 'max:255'],
-            'published_at' => ['required', 'date'],
-        ]));
+        \Auth::user()->songs()->create($request->only('artist', 'title', 'url', 'published_at'));
 
         return redirect()->action([SongsController::class, 'index']);
     }
@@ -78,20 +75,16 @@ class SongsController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param SongRequest $request
      * @param Song $song
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Song $song)
+    public function update(SongRequest $request, Song $song)
     {
         $this->authorize('update', $song);
 
-        $song->update(\Request::validate([
-            'artist'       => ['required'],
-            'title'        => ['required'],
-            'url'          => ['required', 'max:255'],
-            'published_at' => ['required', 'date'],
-        ]));
+        $song->update($request->only('artist', 'title', 'url', 'published_at'));
 
         return redirect()->action([SongsController::class, 'index']);
     }

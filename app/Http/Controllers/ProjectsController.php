@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 
 class ProjectsController extends Controller
@@ -39,14 +40,12 @@ class ProjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param ProjectRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(ProjectRequest $request)
     {
-        \Auth::user()->projects()->create(\Request::validate([
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3'],
-        ]));
+        \Auth::user()->projects()->create($request->only('title', 'description'));
 
         return redirect()->action([ProjectsController::class, 'index']);
     }
@@ -81,16 +80,17 @@ class ProjectsController extends Controller
     /**
      * * Update the specified resource in storage.
      *
+     * @param ProjectRequest $request
      * @param Project $project
      *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
         $this->authorize('update', $project);
 
-        $project->update(\Request::validate(['title' => 'required', 'description' => 'required']));
+        $project->update($request->only('title', 'description'));
 
         return redirect()->action([ProjectsController::class, 'index']);
     }

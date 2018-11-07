@@ -11,6 +11,7 @@
             name="artist"
             placeholder="Song Artist"
             value="{{ old('artist') ?? $song->artist }}"
+            required
             autofocus>
 
         @if ($errors->has('artist'))
@@ -30,7 +31,8 @@
             class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
             name="title"
             placeholder="Song Title"
-            value="{{ old('title') ?? $song->title }}">
+            value="{{ old('title') ?? $song->title }}"
+            required>
 
         @if ($errors->has('title'))
             <span class="invalid-feedback" role="alert">
@@ -49,7 +51,8 @@
             class="form-control{{ $errors->has('url') ? ' is-invalid' : '' }}"
             name="url"
             placeholder="YouTube Link"
-            value="{{ old('url') ?? $song->url }}">
+            value="{{ old('url') ?? $song->url }}"
+            required>
 
         @if ($errors->has('title'))
             <span class="invalid-feedback" role="alert">
@@ -67,7 +70,8 @@
             type="date"
             class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }}"
             name="published_at"
-            value="{{ old('published_at') ?? $song->published_at }}">
+            value="{{ old('published_at') ?? $song->published_at }}"
+            required>
 
         @if ($errors->has('published_at'))
             <span class="invalid-feedback" role="alert">
