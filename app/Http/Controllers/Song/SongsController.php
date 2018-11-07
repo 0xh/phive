@@ -10,7 +10,7 @@ class SongsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only('create');
+        $this->middleware('auth')->except('index', 'show');
     }
 
     /**
@@ -76,12 +76,9 @@ class SongsController extends Controller
      *
      * @param Song $song
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Song $song)
     {
-        $this->authorize('update', $song);
-
         return view('songs.edit', ['song' => $song]);
     }
 
