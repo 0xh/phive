@@ -19,6 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Task[] $tasks
+ * @property int $user_id
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereUserId($value)
  */
 class Project extends Model
 {
@@ -28,8 +31,16 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description',
+        'user_id', 'title', 'description',
     ];
+
+    /**
+     * Get the user that owns the project.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the tasks for the given project.

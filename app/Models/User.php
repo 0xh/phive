@@ -27,6 +27,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Song[] $songs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Project[] $projects
  */
 class User extends Authenticatable
 {
@@ -49,6 +50,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the projects for the given user.
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 
     /**
      * Get the songs for the given user.
