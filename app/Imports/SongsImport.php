@@ -14,7 +14,7 @@ class SongsImport implements ToCollection
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            Song::updateOrCreate([
+            auth()->user()->songs()->updateOrCreate([
                 'artist'       => $row[1],
                 'title'        => $row[2],
             ], [

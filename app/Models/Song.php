@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song whereUrl($value)
  * @mixin \Eloquent
+ * @property int $user_id
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song whereUserId($value)
  */
 class Song extends Model
 {
@@ -31,7 +34,7 @@ class Song extends Model
      * @var array
      */
     protected $fillable = [
-        'artist', 'title', 'url', 'published_at'
+        'user_id', 'artist', 'title', 'url', 'published_at'
     ];
 
     /**
@@ -40,6 +43,14 @@ class Song extends Model
      * @var array
      */
     protected $dates = ['published_at'];
+
+    /**
+     * Get the user that owns the song.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Set the user's first name.
