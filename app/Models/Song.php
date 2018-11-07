@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,9 +26,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song filter($input = array(), $filter = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song paginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song simplePaginateFilter($perPage = null, $columns = array(), $pageName = 'page', $page = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song whereBeginsWith($column, $value, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song whereEndsWith($column, $value, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Song whereLike($column, $value, $boolean = 'and')
  */
 class Song extends Model
 {
+    use Filterable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,6 +52,11 @@ class Song extends Model
      * @var array
      */
     protected $dates = ['published_at'];
+
+    public function modelFilter()
+    {
+        return $this->provideFilter(\App\Filters\SongFilter::class);
+    }
 
     /**
      * Get the user that owns the song.

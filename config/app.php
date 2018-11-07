@@ -163,7 +163,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        EloquentFilter\ServiceProvider::class,
         /*
          * Application Service Providers...
          */

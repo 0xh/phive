@@ -43,7 +43,7 @@ class ProjectsController extends Controller
      */
     public function store()
     {
-        \Auth::user()->projects()->create(request()->validate([
+        \Auth::user()->projects()->create(\Request::validate([
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3'],
         ]));
